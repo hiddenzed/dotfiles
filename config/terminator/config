@@ -1,0 +1,43 @@
+[global_config]
+  always_split_with_profile = True
+  borderless = True
+  dbus = False
+  extra_styling = False
+  homogeneous_tabbar = False
+  scroll_tabbar = True
+  suppress_multiple_term_dialog = True
+  title_font = Source Code Pro Bold 11
+  title_hide_sizetext = True
+  title_transmit_bg_color = "#555753"
+  title_use_system_font = False
+  window_state = hidden
+[keybindings]
+  next_tab = <Primary>Right
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    audible_bell = True
+    background_color = "#f3f3f3"
+    background_darkness = 0.93
+    background_type = transparent
+    cursor_color = "#000000"
+    cursor_color_fg = False
+    cursor_shape = underline
+    custom_command = /bin/fish
+    exit_action = hold
+    font = Source Code Pro Light 12
+    foreground_color = "#000000"
+    icon_bell = False
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
