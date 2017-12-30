@@ -113,7 +113,7 @@ mode "resize" {
 # 
 
 # lock screen
-bindsym $mod+shift+x exec /opt/skripts/i3lock_pix.sh
+bindsym $mod+shift+x exec /home/master/.config/i3/lock.sh 
 
 # print screen
 bindsym $mod+shift+z exec import -window root screenshot.jpg
@@ -132,7 +132,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 # 
 
 # wallpaper
-exec_always feh --bg-scale /home/master/.wall/75936.jpg
+exec_always feh --bg-scale /home/master/wall/4.jpg
 
 #compton
 exec_always compton -b
@@ -142,11 +142,6 @@ exec_always compton -b
 # 
 
 hide_edge_borders both
-
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # # Pulse Audio controls
 bindsym $mod+F1 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -161,6 +156,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 bar {
+        # i3bar_command i3bar -t
         status_command i3blocks -c ~/i3blocks.conf
         colors {
                 background $bg-color
@@ -171,16 +167,23 @@ bar {
                 urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
         }
         position top
+        tray_output none
+        font pango:Source Code Pro Light 11
+        # mode hide
+        # hidden_state show
+
 
 }
 
 # ########################
 
-gaps inner 60
-gaps outer -40
+# gaps inner 60
+# gaps outer -40
+gaps outer 20
 
 
 # new_window none
 bindsym $mod+t border toggle
 # border toggle
 # new_window 1pixel
+# bar_command i3bar -t
