@@ -6,36 +6,32 @@ set $mod Mod4
 floating_modifier $mod
 
 # font
-font pango:Source Code Pro Light 8
+font pango: Monaco Regular 10
 
 # workspaces setting
-set $ws1 "1 "
-set $ws2 "2 "
-set $ws3 "3 "
-set $ws4 "4 "
-set $ws5 "5 "
-set $ws6 "6 "
-set $ws7 "7 "
-set $ws8 "8 "
-set $ws9 "9 "
-set $ws10 "10 "
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
 
 # boarders and titles
 for_window [class="^.*"] border pixel 1
 # for_window [class=".*"] title_format " >_ %title "
 
 # setting default colors
-set $bg-color            #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
+set $bg-color            #273746
+set $inactive-bg-color   #0a0a0f
+set $text-color          #f2f4f4
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
 
 # windows colors
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+client.focused          $bg-color           $bg-color          $text-color          #757875
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #757875
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #757875
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #757875
 
 # 
 # shortcuts
@@ -47,11 +43,7 @@ bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -59,11 +51,6 @@ bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
 
 # main power shortcuts
 bindsym $mod+Shift+q kill
@@ -113,16 +100,19 @@ mode "resize" {
 # 
 
 # lock screen
-bindsym $mod+shift+x exec /home/master/.config/i3/lock.sh 
+#bindsym $mod+shift+x exec /home/master/.config/i3/lock.sh 
+
+# i3 listen python script
+# exec_always python ~/scripts/i3listen.py
 
 # print screen
-bindsym $mod+shift+z exec import -window root screenshot.jpg
+bindsym $mod+shift+z exec import -window root ~/Desktop/screenshot.jpg
 
 # keyboard layout
 exec setxkbmap -layout "us,ru(winkeys)" -option grp:caps_toggle
 
 # rofi menu
-bindsym $mod+d exec rofi -show run -lines 7 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Source Code Pro Light 18"
+bindsym $mod+d exec sh ~/scripts/rofi.sh
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -132,10 +122,13 @@ bindsym $mod+Return exec i3-sensible-terminal
 # 
 
 # wallpaper
-exec_always feh --bg-scale /home/master/wall/4.jpg
+# exec_always feh --bg-scale ~/Downloads/1.jpg
+exec_always feh --bg-scale ~/Pictures/13.jpg
 
 #compton
-exec_always compton -b
+# exec_always compton -b
+exec_always --no-startup-id compton -b -f
+exec_always --no-startup-id mpd
 
 # 
 # i do not know what is it, and bar
@@ -144,42 +137,50 @@ exec_always compton -b
 hide_edge_borders both
 
 # # Pulse Audio controls
-bindsym $mod+F1 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym $mod+F2 exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym $mod+F3 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym $mod+F11 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym $mod+F12 exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+# bindsym $mod+F3 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # # Sreen brightness controls
-bindsym $mod+F4 exec xbacklight -inc 20 # increase screen brightness
-bindsym $mod+F5 exec xbacklight -dec 20 # decrease screen brightness
+# bindsym $mod+F4 exec xbacklight -inc 20 # increase screen brightness
+# bindsym $mod+F5 exec xbacklight -dec 20 # decrease screen brightness
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-bar {
-        # i3bar_command i3bar -t
-        status_command i3blocks -c ~/i3blocks.conf
-        colors {
-                background $bg-color
-                separator #757575
-                #                  border             background         text
-                focused_workspace  $bg-color          $bg-color          $text-color
-                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-        }
-        position top
-        tray_output none
-        font pango:Source Code Pro Light 11
-        # mode hide
-        # hidden_state show
+# bar {
+#         # i3bar_command i3bar -t
+#         status_command i3blocks -c ~/i3blocks.conf
+#         colors {
+#                 background $bg-color
+#                 separator #757575
+#                 #                  border             background         text
+#                 focused_workspace  $bg-color          $bg-color          $text-color
+#                 inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+#                 urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#         }
+#         position bottom
+#         tray_output none
+#         font pango:Source Code Pro Light 11
+#         # mode hide
+#         # hidden_state show
+#     }
+# polybar
+exec_always sh ~/.config/polybar/polybarstart.sh
+# exec_always ncmpcpp
 
+bindsym $mod+shift+h exec polybar-msg cmd toggle
 
-}
+# main apps auto launch (firefox, sublime text, telegram)
+bindsym $mod+F6 exec sh ~/scripts/autolaunch.sh
 
 # ########################
 
-# gaps inner 60
+#smart_borders on
+#smart_gaps on
+gaps inner 7
 # gaps outer -40
-gaps outer 20
+gaps outer 7
 
 
 # new_window none
@@ -187,3 +188,22 @@ bindsym $mod+t border toggle
 # border toggle
 # new_window 1pixel
 # bar_command i3bar -t
+
+
+bindsym $mod+shift+F12 exec ~/scripts/i3lock.sh -l dimblur
+
+assign [class="TelegramDesktop"] $ws2
+assign [class="Firefox"] $ws1
+assign [class="Subl3"] $ws3
+# assign [class=""] $ws
+
+# hotkeys for apps
+bindsym $mod+F1 exec thunar
+bindsym $mod+F2 exec subl3
+bindsym $mod+F3 exec qutebrowser
+bindsym $mod+F4 exec sh ~/scripts/restartff.sh
+bindsym $mod+F5 exec xfce4-taskmanager
+bindsym $mod+F7 exec xfce4-appfinder
+bindsym $mod+F8 exec telegram-desktop
+bindsym $mod+F9 exec gksu mailspring
+
