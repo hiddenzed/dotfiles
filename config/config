@@ -1,0 +1,217 @@
+[colors]
+
+first-color  = #273746
+second-color = #6c3483
+text-color   = #f2f4f4
+
+alert   = #e74c3c
+
+[wm_s]
+focused_background   = #1f1f1f
+unfocused_background = #1f1f1f
+unfocused_alert      = #F4511E
+
+padding = 1
+
+icon_focused   = 
+icon_occupied  = 
+icon_unfocused = 
+
+[fonts]
+
+font-0 = Monaco:pixelsize=11;1
+font-1 = unifont:fontformat=truetype:size=11:antialias=false;0
+font-2 = FontAwesome:pixelsize=11;1
+
+[bar/main]
+
+;size
+
+fixed-center = true
+bottom       = true
+
+width    = 100%
+height   = 40
+
+;offset-x = 70%
+;offset-y = 50%
+
+background = ${colors.first-color}
+
+border-size  = 0
+border-color = ${colors.first-color}
+
+padding-left  = 1
+padding-right = 1
+
+module-margin-left  = 1
+module-margin-right = 0
+
+spacing             = 1
+
+font-0 = ${fonts.font-0}
+font-1 = ${fonts.font-1}
+font-2 = ${fonts.font-2}
+
+enable-ipc = true
+
+modules-left   = mem cpu
+modules-center = doti3 
+modules-right  = xkeyboard volume time
+
+tray-position    = right
+tray-padding     = 0 
+tray-background  = ${colors.first-color}
+tray-scale       = 1.0
+
+
+;modules
+
+[module/doti3]
+
+type            = internal/i3
+format          = <label-state> <label-mode>
+index-sort      = true
+wrapping-scroll = false
+
+label-visible   = 
+label-unfocused = 
+label-urgent    = 
+label-focused   = 
+
+label-visible-padding     = 2
+label-unfocused-padding   = 2
+label-urgent-padding      = 2
+label-focused-padding     = 2
+
+label-urgent-underline  = ${colors.alert}
+
+label-focused-foreground   = ${colors.second-color}
+label-urgent-foreground    = ${colors.alert}
+label-unfocused-foreground = ${colors.text-color}
+
+
+[module/i3]
+
+type            = internal/i3
+format          = <label-state> <label-mode>
+index-sort      = true
+wrapping-scroll = false
+
+;visible
+
+label-visible           = %icon% 
+label-visible-underline = ${colors.alert}
+label-visible-padding   = 2
+
+;unfocused
+
+label-unfocused           = %index% 
+label-unfocused-underline = ${colors.alert}
+label-unfocused-padding   = 2
+
+;urgent
+
+label-urgent             = %index% 
+;label-urgent-underline  = ${colors.alert}
+label-urgent-padding     = 2
+;label-urgent-background = ${colors.alert}
+
+;focused
+
+label-focused             = %index% 
+;label-focused-underline  = ${colors.primary}
+label-focused-padding     = 2
+;label-focused-background = ${colors.primary}
+
+
+[module/time]
+
+type = internal/date
+interval = 5
+
+; Format for date
+date = " %Y/%m/%d"
+
+; Format for time
+time = %H:%M
+
+format-prefix            = ""
+format-prefix-foreground = ${colors.second-color}
+format-prefix-background = ${colors.first-color}
+format-prefix-font       = 2
+
+label            = "%date% %time% "
+label-foreground = ${colors.text-color}
+
+
+[module/volume]
+type = internal/volume
+
+format-volume           = <ramp-volume><label-volume> 
+label-volume            = " %percentage%% "
+label-volume-foreground = ${colors.text-color}
+
+format-muted                    = <label-muted>
+format-muted-prefix             = " "
+format-muted-prefix-foreground  = ${colors.first-color}
+format-muted-prefix-background  = ${colors.first-color}
+
+label-muted            = Muted
+label-muted-background = ${colors.first-color} 
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+ramp-volume-foreground = ${colors.second-color}
+;ramp-volume-background = ${colors.first-color}
+
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+;format-prefix           = 
+label-layout             =  %layout%
+;label-layout-background = #f48aa3s
+label-layout-foreground  = ${colors.text-color}
+
+
+format-prefix             = " "
+format-prefix-foreground =  ${colors.second-color}
+
+
+[module/cpu]
+type = internal/cpu
+
+interval = 2
+
+label-foreground = ${colors.text-color}
+label            = %percentage:2%%
+
+
+[module/mem]
+type = internal/memory
+
+interval = 2
+
+format-prefix            = "  "
+format-prefix-foreground = ${colors.second-color}
+
+;label           =  mem/cpu %percentage_used%%
+label            = %percentage_used%%  
+label-foreground = ${colors.text-color}
+
+
+[settings]
+screenchange-reload     = true
+;compositing-background = xor
+compositing-background  = screen
+compositing-foreground  = source
+compositing-border      = over
+
+[global/wm]
+margin-top    = 0
+margin-bottom = 0
+
+; vim:ft=dosini
