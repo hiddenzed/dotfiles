@@ -33,7 +33,7 @@ bottom       = true
 width    = 100%
 height   = 40
 
-;offset-x = 70%
+;offset-x = 70% 
 ;offset-y = 50%
 
 background = ${colors.first-color}
