@@ -201,4 +201,3 @@ bindsym $mod+F5 exec xfce4-taskmanager
 bindsym $mod+F7 exec xfce4-appfinder
 bindsym $mod+F8 exec telegram-desktop
 bindsym $mod+F9 exec gksu mailspring
-
